@@ -3,7 +3,28 @@
 {% block title %}Hello JobController!{% endblock %}
 
 {% block body %}
-<div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
-    <h1 class="text-4xl text-center">Job Board</h1>
-</div>
+    <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
+        <h1 class="text-4xl text-center">Job Board</h1>
+    </div>
+
+    <div class="container mx-auto px-4">
+        {% for offre in offres %}
+            <div class="shadow-xl p-4 m-5">
+                <h2>
+                    <strong>{{ offre.nom }}</strong> ({{ offre.salaire }} €)
+                </h2>
+                <p>
+                    {{ offre.description }}
+                </p>
+                <p class="py-2">
+                    Service: {{ offre.service.nom }}
+                </p>
+                {% for tag in offre.tags %}
+                    <span class="inline-flex items-center rounded-full bg-yellow-100 p-2 py-0.5 text-sm font-medium text-yellow-800">
+                        {{ tag.nom }}
+                    </span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
