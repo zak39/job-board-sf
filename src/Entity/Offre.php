@@ -25,14 +25,14 @@ class Offre
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
     private ?string $salaire = null;
 
-    #[ORM\ManyToOne(inversedBy: 'offres')]
-    private ?Service $service = null;
-
     /**
      * @var Collection<int, Tag>
      */
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'offres')]
     private Collection $tags;
+
+    #[ORM\ManyToOne(inversedBy: 'offres')]
+    private ?Entreprise $entreprise = null;
 
     public function __construct()
     {
@@ -80,18 +80,6 @@ class Offre
         return $this;
     }
 
-    public function getService(): ?Service
-    {
-        return $this->service;
-    }
-
-    public function setService(?Service $service): static
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Tag>
      */
@@ -112,6 +100,18 @@ class Offre
     public function removeTag(Tag $tag): static
     {
         $this->tags->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getEntreprise(): ?Entreprise
+    {
+        return $this->entreprise;
+    }
+
+    public function setEntreprise(?Entreprise $entreprise): static
+    {
+        $this->entreprise = $entreprise;
 
         return $this;
     }

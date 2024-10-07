@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Entreprise;
 use App\Entity\Offre;
 use App\Entity\Service;
 use App\Entity\Tag;
@@ -52,12 +53,24 @@ class AppFixtures extends Fixture
 
         $manager->flush();
 
+        for ($i = 0; $i < count(self::SERVICES); $i++) {
+            $entreprise = $this->createEntreprise(
+                $faker->company(),
+                $faker->text(),
+                $manager
+            );
+
+            $manager->persist($entreprise);
+        }
+
+        $manager->flush();
+
         for ($i = 0; $i < 25; $i++) {
             $offre = $this->createOffre(
                 $faker->jobTitle(),
                 $faker->paragraph(3),
                 $faker->randomFloat(6, 0, 9999),
-                $this->randomService($manager),
+                $this->randomEntreprise($manager),
                 $this->randomTags($manager)
             );
 
@@ -87,11 +100,25 @@ class AppFixtures extends Fixture
         return $tag;
     }
 
+    private function createEntreprise(string $nom, string $description, ObjectManager $manager): Entreprise
+    {
+        $entreprise = new Entreprise();
+        $entreprise
+            ->setNom($nom)
+            ->setDescription($description)
+        ;
+
+        $service = $this->randomService($manager);
+        $entreprise->addService($service);
+
+        return $entreprise;
+    }
+
     private function createOffre(
         string $nom,
         string $description,
         float $salaire,
-        Service $service,
+        Entreprise $entreprise,
         array $tags
     ): Offre {
         $offre = new Offre();
@@ -100,7 +127,7 @@ class AppFixtures extends Fixture
             ->setNom($nom)
             ->setDescription($description)
             ->setSalaire($salaire)
-            ->setService($service)
+            ->setEntreprise($entreprise)
         ;
 
         foreach ($tags as $tag) {
@@ -111,11 +138,19 @@ class AppFixtures extends Fixture
     }
 
     private function randomService(ObjectManager $manager): Service
-    {
+    {        
         return $manager
             ->getRepository(Service::class)
             ->findByNom(self::SERVICES[array_rand(self::SERVICES)])[0]
         ;
+    }
+
+    private function randomEntreprise(ObjectManager $manager): Entreprise
+    {
+        $entrepriseRepository = $manager->getRepository(Entreprise::class);
+        $entreprises = $entrepriseRepository->findAll();
+
+        return $entreprises[array_rand($entreprises)];
     }
 
     private function randomTags(ObjectManager $manager): array

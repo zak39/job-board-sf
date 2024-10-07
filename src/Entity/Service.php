@@ -24,15 +24,11 @@ class Service
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    /**
-     * @var Collection<int, Offre>
-     */
-    #[ORM\OneToMany(targetEntity: Offre::class, mappedBy: 'service')]
-    private Collection $offres;
+    #[ORM\ManyToOne(inversedBy: 'services')]
+    private ?Entreprise $entreprise = null;
 
     public function __construct()
     {
-        $this->offres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,32 +72,14 @@ class Service
         return $this;
     }
 
-    /**
-     * @return Collection<int, Offre>
-     */
-    public function getOffres(): Collection
+    public function getEntreprise(): ?Entreprise
     {
-        return $this->offres;
+        return $this->entreprise;
     }
 
-    public function addOffre(Offre $offre): static
+    public function setEntreprise(?Entreprise $entreprise): static
     {
-        if (!$this->offres->contains($offre)) {
-            $this->offres->add($offre);
-            $offre->setService($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOffre(Offre $offre): static
-    {
-        if ($this->offres->removeElement($offre)) {
-            // set the owning side to null (unless already changed)
-            if ($offre->getService() === $this) {
-                $offre->setService(null);
-            }
-        }
+        $this->entreprise = $entreprise;
 
         return $this;
     }

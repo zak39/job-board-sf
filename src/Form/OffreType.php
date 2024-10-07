@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Entreprise;
 use App\Entity\Offre;
-use App\Entity\Service;
 use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -36,10 +36,10 @@ class OffreType extends AbstractType
                     'class' => 'border-2 border-blue-500 rounded-lg p-2'
                 ],
             ])
-            ->add('service', EntityType::class, [
-                'class' => Service::class,
+            ->add('Entreprise', EntityType::class, [
+                'class' => Entreprise::class,
                 'choice_label' => 'nom',
-                'label' => 'Le service de l\'offre',
+                'label' => 'L\'entreprise de l\'offre',
                 'attr' => [
                     'class' => 'border-2 border-blue-500 rounded-lg p-2'
                 ],
