@@ -11,6 +11,91 @@
 
 {% block body %}
     <div class="container mx-auto px-4 m-4">
-        {{ form(form) }}
+      {{ form_start(form) }}
+        <div class="space-y-12">
+          <div class="border-b border-gray-900/10 pb-12">
+            <h2 class="text-base font-semibold leading-7 text-gray-900">Création d'un job</h2>
+            <p class="mt-1 text-sm leading-6 text-gray-600">Remplissez le formulaire pour publier votre offre.</p>
+
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-4">
+                {{
+                  form_label(form.nom, 'Nom de l\'offre', {
+                    'label_attr': {
+                      'class': 'block text-sm font-medium leading-6 text-gray-900',
+                    }})
+                }}
+                <div class="mt-2">
+                  <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                    {{ form_widget(form.nom) }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-span-full">
+                {{
+                  form_label(form.description, 'Description', {
+                    'label_attr': {
+                      'class': 'block text-sm font-medium leading-6 text-gray-900'
+                    }
+                  })
+                }}
+                <div class="mt-2">
+                  {{ form_widget(form.description) }}
+                </div>
+                <p class="mt-3 text-sm leading-6 text-gray-600">Écrire quelques mots sur la description de votre offre.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="border-b border-gray-900/10 pb-12">
+            <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div class="sm:col-span-3">
+                {{
+                  form_label(form.salaire, 'Salaire', {
+                    'label_attr': {
+                      'class': 'block text-sm font-medium leading-6 text-gray-900'
+                    }
+                  })
+                }}
+                <div class="mt-2">
+                  {{ form_widget(form.salaire) }}
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                {{
+                  form_label(form.Entreprise, 'L\'entreprise de l\'offre', {
+                    'label_attr': {
+                      'class': 'block text-sm font-medium leading-6 text-gray-900'
+                    }
+                  })
+                }}
+                <div class="mt-2">
+                  {{ form_widget(form.Entreprise) }}
+                </div>
+              </div>
+
+              <div class="sm:col-span-3">
+                {{
+                  form_label(form.tags, 'Tags de l\'offre', {
+                    'label_attr': {
+                      'class': 'block text-sm font-medium leading-6 text-gray-900'
+                    }
+                  })
+                }}
+                <div class="mt-2">
+                  {{ form_widget(form.tags) }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex items-center justify-start gap-x-6">
+          {{ form_row(form.submit) }}
+        </div>
+      {{ form_end(form) }}
     </div>
 {% endblock %}
