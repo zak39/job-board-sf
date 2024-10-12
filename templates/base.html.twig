@@ -18,6 +18,12 @@
             <h1 class="text-4xl text-center">{% block title_page %}Job Board{% endblock %}</h1>
         </div>
 
+        <nav class="container mx-auto my-5" aria-label="Breadcrumb">
+            <ol class="flex items-center gap-1 text-sm text-gray-600">
+                {% include 'breadcrumbs/_home.html.twig' with { 'name': 'Home', 'link': path('app_job') } only %}
+                {% block breadcrumbs %}{% endblock %}
+            </ol>
+        </nav>
         {% block body %}{% endblock %}
     </body>
 </html>

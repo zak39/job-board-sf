@@ -4,6 +4,11 @@
 
 {% block title_page %}Formulaire{% endblock %}
 
+{% block breadcrumbs %}
+  {{ include('breadcrumbs/_separator.html.twig') }}
+  {% include 'breadcrumbs/_link.html.twig' with { 'name': 'Création d\'une offre', 'link': path('app_job_new') } only %}
+{% endblock %}
+
 {% block body %}
     <div class="container mx-auto px-4 m-4">
         {{ form(form) }}
