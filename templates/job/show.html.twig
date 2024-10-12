@@ -2,11 +2,9 @@
 
 {% block title %}Hello JobController!{% endblock %}
 
-{% block body %}
-    <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
-        <h1 class="text-4xl text-center">{{ offre.nom }}</h1>
-    </div>
+{% block title_page %}{{ offre.nom }}{% endblock %}
 
+{% block body %}
     <div class="container mx-auto px-4">
         {{ include('job/_offre.html.twig') }}
     </div>

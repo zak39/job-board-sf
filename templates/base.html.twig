@@ -14,6 +14,10 @@
         {% endblock %}
     </head>
     <body>
+        <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
+            <h1 class="text-4xl text-center">{% block title_page %}Job Board{% endblock %}</h1>
+        </div>
+
         {% block body %}{% endblock %}
     </body>
 </html>
