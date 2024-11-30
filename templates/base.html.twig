@@ -14,6 +14,9 @@
         {% endblock %}
     </head>
     <body>
+        {% if app.environment == 'production' %}
+            {{ include('banner/_banner.html.twig') }}
+        {% endif %}
         <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-4">
             <h1 class="text-4xl text-center">{% block title_page %}Job Board{% endblock %}</h1>
         </div>
@@ -27,5 +30,6 @@
             </ol>
         </nav>
         {% block body %}{% endblock %}
+        {{ include('footer/_footer.html.twig') }}
     </body>
 </html>
