@@ -8,6 +8,8 @@ services:
       # You should definitely change the password in production
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
       POSTGRES_USER: ${POSTGRES_USER:-app}
+    ports:
+      - '5432'
     healthcheck:
       test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
       timeout: 5s
@@ -17,9 +19,27 @@ services:
       - database_data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
+  php:
+    build: .
+    restart: always
+    ports:
+      - "9400:80" # HTTP
+      - "9401:443" # HTTPS
+      - "9401:443/udp" # HTTP/3
+    volumes:
+      - .:/app
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - database
+    extra_hosts:
+      - "job-board.zak.dev=127.0.0.1"
+      - "job-board.zak.dev=::1"
 ###< doctrine/doctrine-bundle ###
 
 volumes:
 ###> doctrine/doctrine-bundle ###
   database_data:
+  caddy_data:
+  caddy_config:
 ###< doctrine/doctrine-bundle ###
