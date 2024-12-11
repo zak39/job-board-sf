@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Impossible de trouver la page{% endblock %}
+
+{% block body %}
+    <div class="text-stone-950">
+        <div class="flex flex-col items-center justify-center px-2">
+            <h1 class="text-7xl font-bold">500</h1>
+            <p class="mt-16">Ceci est très gênant !</p>
+            <p class="my-2">Désolé, on dirait qu'il y a un problème en interne. Vous pouvez retourner à la page d'accueil.</p>
+            <a href={{ path('app_job') }} class="my-8 w-80 text-center bg-blue-700 text-blue-50 rounded-full px-4 py-2">
+                Retourner à la page d'accueil
+            </a>
+        </div>
+    </div>
+{% endblock %}
